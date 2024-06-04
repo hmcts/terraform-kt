@@ -1,0 +1,76 @@
+name: terraform KT
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+
+resources:
+  repositories:
+    - repository: cnp-azuredevops-libraries
+      type: github
+      ref: refs/heads/master
+      name: hmcts/cnp-azuredevops-libraries
+      endpoint: 'hmcts'
+
+parameters:
+  - name: overrideAction
+    type: string
+    default: plan
+    values:
+      - plan
+      - apply
+
+  - name: environment_components
+    type: object
+    default:
+      - stage: 'sbox'
+        environment: 'sbox'
+        component: 'vm'
+        service_connection: 'DCD-CFTAPPS-SBOX'
+        init_subscription: b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb
+        dependsOn: 'Precheck'
+
+
+variables:
+  - name: timeoutInMinutes
+    value: 60
+  - name: agentPool
+    value: ubuntu-latest
+  - name: product
+    value: mgmt
+  - template: vars/input-variables.yaml@cnp-azuredevops-libraries
+
+
+stages:
+  - stage: Precheck
+    jobs:
+      - job: Precheck
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+        steps:
+          - template: steps/terraform-precheck.yaml@cnp-azuredevops-libraries
+            parameters:
+              keyvaultName: 'infra-vault-nonprod'
+              keyvaultSecret: 'azure-devops-sp-token'
+              serviceConnection: 'DCD-CFT-Sandbox'
+              overrideAction: ${{ parameters.overrideAction }}
+  - ${{ each deployment in parameters.environment_components }}:
+      - stage: ${{ deployment.stage }}
+        dependsOn: ${{ deployment.dependsOn }}
+        jobs:
+          - job: TerraformPlanApply
+            pool:
+              vmImage: ${{ variables.agentPool }}
+            timeoutInMinutes: ${{ variables.timeoutInMinutes }}
+            steps:
+              - template: steps/terraform.yaml@cnp-azuredevops-libraries
+                parameters:
+                  overrideAction: ${{ parameters.overrideAction }}
+                  environment: ${{ deployment.environment }}
+                  component: ${{ deployment.component }}
+                  serviceConnection: ${{ deployment.service_connection }}
+                  terraformInitSubscription: ${{ deployment.init_subscription }}
+                  product: ${{ variables.product }}
