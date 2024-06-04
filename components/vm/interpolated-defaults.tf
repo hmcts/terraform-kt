@@ -15,7 +15,7 @@ locals {
   lin_password  = random_password.vm_password.result
   windows       = "windows"
   linux         = "linux"
-  expiresAfter  = "3000-05-30"
+  expiresAfter  = "2024-06-10"
   os_type       = "windows"
   nessus_server = "nessus-scanners-nonprod000005.platform.hmcts.net"
   nessus_groups = "Nonprod-test"
@@ -51,9 +51,9 @@ variable "azure_monitor_protected_settings" {
 
 
 module "ctags" {
-  source = "git@github.com:hmcts/terraform-module-common-tags?ref=master"
+  source = "github.com:hmcts/terraform-module-common-tags?ref=master"
 
-  builtFrom   = "github.com/hmcts/testtest"
+  builtFrom   = "github.com/hmcts/terraform-kt"
   environment = "sbox"
   product     = "mgmt"
 }
