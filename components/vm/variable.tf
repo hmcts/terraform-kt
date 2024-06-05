@@ -19,7 +19,7 @@ variable "product" {
 variable "env" {
   type        = string
   description = "Environment name"
-  default     = "prod"
+  default     = "sbox"
 }
 
 variable "builtFrom" {
