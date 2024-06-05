@@ -23,6 +23,8 @@ module "vm_windows" {
   vm_sku                     = "win11-21h2-pro"
   vm_version                 = "latest"
   install_dynatrace_oneagent = false
+  install_splunk_uf          = false
+  nessus_install             = false
   env                        = "sbox"
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 }
