@@ -29,7 +29,7 @@ parameters:
         environment: 'sbox'
         component: 'vm'
         service_connection: 'DCD-CFTAPPS-SBOX'
-        init_subscription: b72ab7b7-723f-4b18-b6f6-03b0f2c6a1bb
+        init_subscription: 04d27a32-7a07-48b3-95b8-3c8691e1a263
         dependsOn: 'Precheck'
 
 
