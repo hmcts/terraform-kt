@@ -51,7 +51,7 @@ variable "azure_monitor_protected_settings" {
 
 
 module "ctags" {
-  source = "github.com:hmcts/terraform-module-common-tags?ref=master"
+  source = "github.com/hmcts/terraform-module-common-tags.git?ref=master"
 
   builtFrom   = "github.com/hmcts/terraform-kt"
   environment = "sbox"

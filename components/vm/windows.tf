@@ -4,7 +4,7 @@ module "vm_windows" {
     azurerm.cnp = azurerm.cnp
     azurerm.soc = azurerm.soc
   }
-  source               = "github.com:hmcts/terraform-module-virtual-machine.git?ref=master"
+  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=master"
   vm_type              = local.windows
   vm_name              = "win-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
