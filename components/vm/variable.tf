@@ -1,13 +1,13 @@
 variable "notes" {
   type        = string
   description = "User defined Notes for the service principal"
-  default     = "This service principal created by hmcts/central-app-registration repository"
+  default     = "This test created by hmcts/terraform-kt repository"
 }
 
 variable "resource_group_name" {
-  description = "Resource group name for keyvault"
+  description = "Resource group name"
   type        = string
-  default     = "central-app-registration-rg"
+  default     = "terraform-kt-rg"
 }
 
 variable "product" {
@@ -25,5 +25,5 @@ variable "env" {
 variable "builtFrom" {
   type        = string
   description = "Built from"
-  default     = "hmcts/central-app-registration"
+  default     = "hmcts/terraform-kt"
 }
