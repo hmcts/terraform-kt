@@ -35,14 +35,14 @@ parameters:
 
 variables:
   - name: timeoutInMinutes
-    value: 80
+    value: 60
   - name: agentPool
     value: ubuntu-latest
   - name: product
     value: mgmt
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
   - name: finalAction
-    ${{ if eq(variables['timeoutInMinutes'], '60') }}:
+    ${{ if eq(variables['isMain'], 'True') }}:
       value: 'apply'
     ${{ else }}:
       value: ${{ parameters.overrideAction }}
