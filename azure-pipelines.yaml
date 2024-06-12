@@ -44,7 +44,7 @@ variables:
     value: $[in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/master')]
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
   - name: finalAction
-    ${{ if in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/master') }}:
+    ${{ if and(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/master'), in(variables['Build.Reason'], 'BatchedCI', 'IndividualCI', 'PullRequest', 'Schedule'))  }}:
       value: 'apply'
     ${{ else }}:
       value: ${{ parameters.overrideAction }}
