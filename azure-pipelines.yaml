@@ -49,7 +49,7 @@ variables:
     ${{ else }}:
       value: ${{ parameters.overrideAction }}
 
-name: "$(finalAction) - terraform KT"
+name: "${{ parameters.overrideAction }} - terraform KT"
 
 stages:
   - stage: Precheck
