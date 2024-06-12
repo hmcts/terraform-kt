@@ -42,7 +42,7 @@ variables:
     value: mgmt
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
   - name: finalAction
-    ${{ if eq(variables.isMain, variables.isAutoTriggered) }}:
+    ${{ if eq(${{ variables.isMain }}, ${{ variables.isAutoTriggered }}) }}:
       value: 'apply'
     ${{ else }}:
       value: ${{ parameters.overrideAction }}
