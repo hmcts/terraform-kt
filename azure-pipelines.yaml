@@ -45,7 +45,7 @@ variables:
     ${{ if and(eq(variables['isMain'], true), eq(variables['isAutoTriggered'], true)) }}:
       value: 'apply'
     ${{ else }}:
-      value: ${{ parameters.overrideAction }}
+      value: ${{ variables.timeoutInMinutes }} #${{ parameters.overrideAction }}
 
 name: "$(finalAction) - terraform KT"
 
