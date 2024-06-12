@@ -45,7 +45,7 @@ variables:
     ${{ if and(variables.isMain, variables.isAutoTriggered) }}:
       value: 'apply'
     ${{ else }}:
-      value: ${{ variables.isAutoTriggered }} #${{ parameters.overrideAction }}
+      value: ${{ parameters.overrideAction }}
 
 name: "$(finalAction) - terraform KT"
 
