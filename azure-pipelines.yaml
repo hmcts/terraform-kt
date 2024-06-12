@@ -40,9 +40,11 @@ variables:
     value: ubuntu-latest
   - name: product
     value: mgmt
+  - name: newmain
+    value: $[in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/master')]
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
   - name: finalAction
-    ${{ if (variables['isMain']) }}:
+    ${{ if eq(variables['newmain'], True) }}:
       value: 'apply'
     ${{ else }}:
       value: ${{ parameters.overrideAction }}
