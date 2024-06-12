@@ -44,7 +44,7 @@ variables:
     value: $[in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/master')]
   - template: vars/input-variables.yaml@cnp-azuredevops-libraries
   - name: finalAction
-    ${{ if eq(variables['newmain'], True) }}:
+    ${{ if in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/master') }}:
       value: 'apply'
     ${{ else }}:
       value: ${{ parameters.overrideAction }}
