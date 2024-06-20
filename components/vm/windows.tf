@@ -9,7 +9,7 @@ module "vm_windows" {
   vm_name              = "win-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
   vm_location          = azurerm_resource_group.rg.location
-  vm_size              = "Standard_D4ds_v5"
+  vm_size              = "Standard_D8ds_v5"
   vm_admin_password    = local.win_password
   vm_availabilty_zones = "1"
   nic_name             = "nic-winvm"
