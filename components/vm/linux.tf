@@ -27,6 +27,12 @@ module "vm_windows" {
   nessus_install             = false
   env                        = "sbox"
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+
+
+  run_command        = true
+  run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
+  run_xdr_collector  = true
+  run_xdr_agent      = true
 }
 
 resource "azurerm_public_ip" "pubipt" {
@@ -37,4 +43,10 @@ resource "azurerm_public_ip" "pubipt" {
   allocation_method   = "Static"
   zones               = ["1"]
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+}
+
+data "azurerm_storage_account" "xdr_storage" {
+  provider            = azurerm.DTS-CFTPTL-INTSVC
+  name                = "cftptlintsvc"
+  resource_group_name = "core-infra-intsvc-rg"
 }
