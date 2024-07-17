@@ -33,6 +33,7 @@ module "vm_windows" {
   run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
   run_xdr_collector  = true
   run_xdr_agent      = true
+  rc_script_file     = ""
 }
 
 resource "azurerm_public_ip" "pubipt" {
