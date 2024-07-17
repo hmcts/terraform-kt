@@ -24,7 +24,7 @@ module "vm_windows" {
   vm_version                 = "latest"
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
-  nessus_install             = false
+  nessus_install             = true
   env                        = "sbox"
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
