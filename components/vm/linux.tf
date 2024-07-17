@@ -4,7 +4,7 @@ module "vm_windows" {
     azurerm.cnp = azurerm.cnp
     azurerm.soc = azurerm.soc
   }
-  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=master"
+  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=cpareek-patch-1"
   vm_type              = local.linux
   vm_name              = "lin-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
@@ -24,7 +24,7 @@ module "vm_windows" {
   vm_version                 = "latest"
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
-  nessus_install             = true
+  nessus_install             = false
   env                        = "sbox"
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
