@@ -6,7 +6,7 @@ data "azurerm_storage_account" "xdr_storage" {
 }
 
 # RHEL6
-module "vm_windows" {
+module "vm_rhel6" {
   providers = {
     azurerm     = azurerm
     azurerm.cnp = azurerm.cnp
@@ -56,7 +56,7 @@ resource "azurerm_public_ip" "pubipt" {
 
 
 # Ubuntu 20.04
-module "vm_windows" {
+module "vm_ubu2004" {
   providers = {
     azurerm     = azurerm
     azurerm.cnp = azurerm.cnp
