@@ -30,6 +30,7 @@ module "vm_rhel6" {
   vm_offer                   = "rh-rhel"
   vm_sku                     = "rh-rhel7"
   vm_version                 = "latest"
+  vm_patch_mode              = "AutomaticByPlatform"
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
   nessus_install             = false
