@@ -31,6 +31,7 @@ module "vm_rhel6" {
   vm_sku                     = "rh-rhel7"
   vm_version                 = "latest"
   vm_patch_mode              = "ImageDefault"
+  aum_schedule_enable        = false
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
   nessus_install             = false
