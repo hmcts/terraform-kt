@@ -104,22 +104,3 @@ resource "azurerm_public_ip" "pubipt2" {
   zones               = ["1"]
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 }
-
-
-resource "azurerm_network_security_group" "example" {
-  name                = "acceptanceTestSecurityGroup1"
-  location            = azurerm_resource_group.rg.name
-  resource_group_name = azurerm_resource_group.rg.location
-
-  security_rule {
-    name                       = "ssh"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "80.192.199.67"
-    destination_address_prefix = "*"
-  }
-}
