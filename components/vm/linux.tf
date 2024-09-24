@@ -14,7 +14,7 @@ module "vm_rhel6" {
   }
   source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=bugfix-xdr-run-command-rhel6-azcopy"
   vm_type              = local.linux
-  vm_name              = "rhel6-test-vm"
+  vm_name              = "rhel7-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
   vm_location          = azurerm_resource_group.rg.location
   vm_size              = "Standard_D4ds_v5"
@@ -26,13 +26,11 @@ module "vm_rhel6" {
   vm_private_ip        = "10.7.38.10"
   vm_public_ip_address = azurerm_public_ip.pubipt.id
   #storage_image_reference
-  vm_publisher_name          = "redhat-limited"
-  vm_offer                   = "rh-rhel"
-  vm_sku                     = "rh-rhel7"
-  vm_version                 = "latest"
-  vm_patch_mode              = "ImageDefault"
-  vm_patch_assessment_mode   = "ImageDefault"
-  aum_schedule_enable        = false
+  # vm_publisher_name          = "redhat-limited"
+  # vm_offer                   = "rh-rhel"
+  # vm_sku                     = "rh-rhel7"
+  # vm_version                 = "latest"
+  vm_custom_image_id         = "/subscriptions/9c604868-4643-43b8-9eb1-4c348c739a3e/resourceGroups/hmcts-images/providers/Microsoft.Compute/galleries/hmcts_images/images/hmcts-rhel-7.7/versions/0.5.0"
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
   nessus_install             = false
