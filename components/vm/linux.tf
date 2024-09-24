@@ -26,10 +26,10 @@ module "vm_rhel6" {
   vm_private_ip        = "10.7.38.10"
   vm_public_ip_address = azurerm_public_ip.pubipt.id
   #storage_image_reference
-  # vm_publisher_name          = "redhat-limited"
-  # vm_offer                   = "rh-rhel"
-  # vm_sku                     = "rh-rhel7"
-  # vm_version                 = "latest"
+  vm_publisher_name          = "redhat-limited"
+  vm_offer                   = "rh-rhel"
+  vm_sku                     = "rh-rhel7"
+  vm_version                 = "latest"
   custom_image_id            = "/subscriptions/9c604868-4643-43b8-9eb1-4c348c739a3e/resourceGroups/hmcts-images/providers/Microsoft.Compute/galleries/hmcts_images/images/hmcts-rhel-7.7/versions/0.5.0"
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
