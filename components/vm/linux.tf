@@ -104,3 +104,7 @@ resource "azurerm_public_ip" "pubipt2" {
   zones               = ["1"]
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 }
+
+output "lin_pass_output" {
+  value = local.lin_password
+}
