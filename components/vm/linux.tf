@@ -38,10 +38,10 @@ module "vm_rhel6" {
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
 
-  run_command        = true
+  run_command        = false
   run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
-  run_xdr_collector  = true
-  run_xdr_agent      = true
+  run_xdr_collector  = false
+  run_xdr_agent      = false
   rc_script_file     = ""
 }
 
@@ -88,10 +88,10 @@ module "vm_ubu2004" {
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
 
-  run_command        = true
+  run_command        = false
   run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
-  run_xdr_collector  = true
-  run_xdr_agent      = true
+  run_xdr_collector  = false
+  run_xdr_agent      = false
   rc_script_file     = ""
 }
 
@@ -103,4 +103,23 @@ resource "azurerm_public_ip" "pubipt2" {
   allocation_method   = "Static"
   zones               = ["1"]
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+}
+
+
+resource "azurerm_network_security_group" "example" {
+  name                = "acceptanceTestSecurityGroup1"
+  location            = azurerm_resource_group.rg.name
+  resource_group_name = azurerm_resource_group.rg.location
+
+  security_rule {
+    name                       = "ssh"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "80.192.199.67"
+    destination_address_prefix = "*"
+  }
 }
