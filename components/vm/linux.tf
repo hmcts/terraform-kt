@@ -30,7 +30,7 @@ module "vm_rhel6" {
   vm_offer                   = ""
   vm_sku                     = ""
   vm_version                 = ""
-  custom_image_id            = "/subscriptions/9c604868-4643-43b8-9eb1-4c348c739a3e/resourceGroups/NEXT-RG/providers/Microsoft.Compute/galleries/hmcts_shared_images/images/hmcts-rhel-6.9/versions/0.9.0"
+  custom_image_id            = "/subscriptions/9c604868-4643-43b8-9eb1-4c348c739a3e/resourceGroups/NEXT-RG/providers/Microsoft.Compute/galleries/hmcts_shared_images/images/hmcts-rhel-6.9/versions/1.0.5"
   install_dynatrace_oneagent = false
   install_splunk_uf          = false
   nessus_install             = false
