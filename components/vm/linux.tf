@@ -89,10 +89,10 @@ module "vm_rhel7" {
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
 
-  run_command        = true
+  run_command        = false
   run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
   run_xdr_collector  = false
-  run_xdr_agent      = true
+  run_xdr_agent      = false
   rc_script_file     = ""
 }
 
@@ -138,10 +138,10 @@ module "vm_ubu2004" {
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
 
-  run_command        = true
+  run_command        = false
   run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
   run_xdr_collector  = false
-  run_xdr_agent      = true
+  run_xdr_agent      = false
   rc_script_file     = ""
 }
 
