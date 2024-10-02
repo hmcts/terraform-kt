@@ -11,6 +11,7 @@ module "vm_rhel7" {
     azurerm     = azurerm
     azurerm.cnp = azurerm.cnp
     azurerm.soc = azurerm.soc
+    azurerm.dcr = azurerm.dcr
   }
   source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=bugfix-xdr-run-command-rhel6-azcopy"
   vm_type              = local.linux
@@ -61,6 +62,7 @@ module "vm_ubu2004" {
     azurerm     = azurerm
     azurerm.cnp = azurerm.cnp
     azurerm.soc = azurerm.soc
+    azurerm.dcr = azurerm.dcr
   }
   source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=bugfix-xdr-run-command-rhel6-azcopy"
   vm_type              = local.linux
