@@ -38,3 +38,10 @@ provider "azurerm" {
   subscription_id = "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
   alias           = "DTS-CFTPTL-INTSVC"
 }
+
+provider "azurerm" {
+  alias                      = "dcr"
+  skip_provider_registration = "true"
+  features {}
+  subscription_id = "bf308a5c-0624-4334-8ff8-8dca9fd43783"
+}
