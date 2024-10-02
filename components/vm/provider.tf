@@ -9,6 +9,7 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "4.2.0"
+      configuration_aliases = [azurerm.dcr]
     }
   }
 }
