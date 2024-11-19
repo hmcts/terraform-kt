@@ -38,11 +38,13 @@ module "vm_rhel7" {
   tags                       = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 
 
-  run_command        = true
-  run_command_sa_key = data.azurerm_storage_account.xdr_storage.primary_access_key
-  run_xdr_collector  = false
-  run_xdr_agent      = true
-  rc_script_file     = ""
+  run_command             = true
+  run_command_sa_key      = data.azurerm_storage_account.xdr_storage.primary_access_key
+  run_xdr_collector       = false
+  run_xdr_agent           = true
+  rc_script_file          = ""
+  enable_availability_set = true
+  availability_set_name   = "vm-availability-set"
 }
 
 resource "azurerm_public_ip" "pubipt_rhel7" {
