@@ -13,7 +13,7 @@ module "vm_rhel7" {
     azurerm.soc = azurerm.soc
     azurerm.dcr = azurerm.dcr
   }
-  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=master"
+  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=DTSPO-22154-availability_set"
   vm_type              = local.linux
   vm_name              = "rhel7-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
