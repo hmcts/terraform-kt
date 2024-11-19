@@ -18,7 +18,7 @@ module "vm_rhel7" {
   vm_name              = "rhel7-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
   vm_location          = azurerm_resource_group.rg.location
-  vm_size              = "Standard_D4ds_v5"
+  vm_size              = "Standard_D2s_v3"
   vm_admin_password    = local.lin_password
   vm_availabilty_zones = "1"
   nic_name             = "nic-rhel7"
