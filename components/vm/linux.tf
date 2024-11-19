@@ -25,6 +25,7 @@ module "vm_rhel7" {
   vm_subnet_id         = azurerm_subnet.subnet.id
   vm_private_ip        = "10.7.38.20"
   vm_public_ip_address = azurerm_public_ip.pubipt_rhel7.id
+  vm_availabilty_zones = null
   #storage_image_reference
   vm_publisher_name          = "RedHat"
   vm_offer                   = "RHEL"
