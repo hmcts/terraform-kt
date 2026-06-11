@@ -83,7 +83,6 @@ resource "azurerm_backup_policy_vm" "daily" {
 
 # Protect the VM in the Recovery Services Vault using the backup policy
 resource "azurerm_backup_protected_vm" "rhel7" {
-  name                 = "protected-rhel7"
   resource_group_name  = azurerm_resource_group.rg.name
   recovery_vault_name  = azurerm_recovery_services_vault.rhel7_rsv.name
   source_vm_id         = module.vm_rhel7.vm_id
