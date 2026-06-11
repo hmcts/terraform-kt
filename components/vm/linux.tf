@@ -1,4 +1,3 @@
-
 data "azurerm_storage_account" "xdr_storage" {
   provider            = azurerm.DTS-CFTPTL-INTSVC
   name                = "cftptlintsvc"
@@ -16,8 +15,8 @@ module "vm_rhel7" {
   source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=master"
   vm_type              = local.linux
   vm_name              = "rhel7-test-vm"
-  vm_resource_group    = azurerm_resource_group.rg.name
-  vm_location          = azurerm_resource_group.rg.location
+  vm_resource_group    = azurerm_resource_group.ks_rg.name
+  vm_location          = azurerm_resource_group.ks_rg.location
   vm_size              = "Standard_D2ds_v5"
   vm_admin_password    = local.lin_password
   nic_name             = "nic-rhel7"
@@ -49,8 +48,8 @@ module "vm_rhel7" {
 
 resource "azurerm_public_ip" "pubipt_rhel7" {
   name                = "pupipt_rhel7"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.ks_rg.name
+  location            = azurerm_resource_group.ks_rg.location
   sku                 = "Standard"
   allocation_method   = "Static"
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
@@ -59,8 +58,8 @@ resource "azurerm_public_ip" "pubipt_rhel7" {
 # Recovery Services Vault for VM backups
 resource "azurerm_recovery_services_vault" "rhel7_rsv" {
   name                = "rsv-rhel7"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.ks_rg.name
+  location            = azurerm_resource_group.ks_rg.location
   sku                 = "Standard"
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 }
@@ -68,7 +67,7 @@ resource "azurerm_recovery_services_vault" "rhel7_rsv" {
 # Backup policy (VM) - simple daily policy
 resource "azurerm_backup_policy_vm" "daily" {
   name                = "daily-policy"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = azurerm_resource_group.ks_rg.name
   recovery_vault_name = azurerm_recovery_services_vault.rhel7_rsv.name
 
   backup {
@@ -83,7 +82,7 @@ resource "azurerm_backup_policy_vm" "daily" {
 
 # Protect the VM in the Recovery Services Vault using the backup policy
 resource "azurerm_backup_protected_vm" "rhel7" {
-  resource_group_name  = azurerm_resource_group.rg.name
+  resource_group_name  = azurerm_resource_group.ks_rg.name
   recovery_vault_name  = azurerm_recovery_services_vault.rhel7_rsv.name
   source_vm_id         = module.vm_rhel7.vm_id
   backup_policy_id     = azurerm_backup_policy_vm.daily.id
