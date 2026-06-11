@@ -13,7 +13,7 @@ module "vm_rhel7" {
     azurerm.soc = azurerm.soc
     azurerm.dcr = azurerm.dcr
   }
-  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=DTSPO-22154-availability_set"
+  source               = "github.com/hmcts/terraform-module-virtual-machine.git?ref=main"
   vm_type              = local.linux
   vm_name              = "rhel7-test-vm"
   vm_resource_group    = azurerm_resource_group.rg.name
@@ -54,4 +54,39 @@ resource "azurerm_public_ip" "pubipt_rhel7" {
   sku                 = "Standard"
   allocation_method   = "Static"
   tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+}
+
+# Recovery Services Vault for VM backups
+resource "azurerm_recovery_services_vault" "rhel7_rsv" {
+  name                = "rsv-rhel7"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Standard"
+  tags                = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+}
+
+# Backup policy (VM) - simple daily policy
+resource "azurerm_backup_policy_vm" "daily" {
+  name                = "daily-policy"
+  resource_group_name = azurerm_resource_group.rg.name
+  recovery_vault_name = azurerm_recovery_services_vault.rhel7_rsv.name
+
+  backup {
+    frequency = "Daily"
+    time      = "23:00"
+    timezone  = "UTC"
+  }
+
+  retention_daily {
+    count = 30
+  }
+}
+
+# Protect the VM in the Recovery Services Vault using the backup policy
+resource "azurerm_backup_protected_vm" "rhel7" {
+  name                 = "protected-rhel7"
+  resource_group_name  = azurerm_resource_group.rg.name
+  recovery_vault_name  = azurerm_recovery_services_vault.rhel7_rsv.name
+  source_vm_id         = module.vm_rhel7.vm_id
+  backup_policy_id     = azurerm_backup_policy_vm.daily.id
 }
