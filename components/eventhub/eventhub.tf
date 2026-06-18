@@ -32,6 +32,16 @@ resource "azurerm_eventhub_namespace_authorization_rule" "bcdr_test_rule" {
   manage              = false
 }
 
+# Diagnostic shared access key for logging/monitoring
+resource "azurerm_eventhub_namespace_authorization_rule" "diagnostic_shared_access_key" {
+  name                = "DiagnosticSharedAccessKey"
+  namespace_name      = azurerm_eventhub_namespace.ks_eh_ns.name
+  resource_group_name = azurerm_resource_group.ks_rg.name
+  listen              = true
+  send                = true
+  manage              = false
+}
+
 # Outputs for BCDR testing
 output "eventhub_namespace_id" {
   value = azurerm_eventhub_namespace.ks_eh_ns.id
