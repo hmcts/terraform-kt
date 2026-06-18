@@ -4,7 +4,7 @@ resource "azurerm_eventhub_namespace" "ks_eh_ns" {
   location            = azurerm_resource_group.ks_rg.location
   sku                 = "Standard"
   capacity            = 1
-  tags = merge(local.common_tags, { expiresAfter = local.expiresAfter })
+  tags = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 }
 
 resource "azurerm_eventhub" "ks_eh" {
