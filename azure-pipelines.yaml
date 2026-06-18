@@ -31,6 +31,12 @@ parameters:
         service_connection: 'DCD-CFTAPPS-SBOX'
         init_subscription: 04d27a32-7a07-48b3-95b8-3c8691e1a263
         dependsOn: 'Precheck'
+      - stage: 'sbox_eventhub'
+        environment: 'sbox'
+        component: 'eventhub'
+        service_connection: 'DCD-CFTAPPS-SBOX'
+        init_subscription: 04d27a32-7a07-48b3-95b8-3c8691e1a263
+        dependsOn: 'sbox'
 
 
 variables:
