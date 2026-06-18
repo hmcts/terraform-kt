@@ -1,3 +1,3 @@
 data "azurerm_resource_group" "ks_rg" {
-  name = "ks-rg"
+  name = var.resource_group_name
 }
