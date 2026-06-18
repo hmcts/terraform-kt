@@ -2,10 +2,8 @@ resource "azurerm_eventhub_namespace" "ks_eh_ns" {
   name                = "ks-eh-ns-test"
   resource_group_name = azurerm_resource_group.ks_rg.name
   location            = azurerm_resource_group.ks_rg.location
-  sku {
-    name     = "Standard"
-    capacity = 1
-  }
+  sku                 = "Standard"
+  capacity            = 1
   tags = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
 }
 
@@ -14,7 +12,7 @@ resource "azurerm_eventhub" "ks_eh" {
   namespace_name      = azurerm_eventhub_namespace.ks_eh_ns.name
   resource_group_name = azurerm_resource_group.ks_rg.name
   partition_count     = 2
-  retention_in_days   = 1
+  message_retention   = 1
 }
 
 resource "azurerm_eventhub_consumer_group" "bcdr_test_cg" {
