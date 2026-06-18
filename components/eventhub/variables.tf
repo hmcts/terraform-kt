@@ -13,11 +13,17 @@ variable "product" {
 variable "builtFrom" {
   type        = string
   description = "Built from"
-  default     = "hmcts/terraform-kt"
+  default     = "github.com/hmcts/terraform-kt"
 }
 
 variable "env" {
   type        = string
   description = "Environment name"
   default     = "sbox"
+}
+
+variable "expiresAfter" {
+  type        = string
+  description = "Resource expiration date"
+  default     = "2026-12-31"
 }
