@@ -89,3 +89,45 @@ resource "azurerm_backup_protected_vm" "rhel7" {
   source_vm_id              = module.vm_rhel7.vm_id
   backup_policy_id          = azurerm_backup_policy_vm.daily.id
 }
+
+# Data disk for testing disk recovery
+resource "azurerm_managed_disk" "test_data_disk" {
+  name                = "test-data-disk-rhel7"
+  location            = azurerm_resource_group.ks_rg.location
+  resource_group_name = azurerm_resource_group.ks_rg.name
+  storage_account_type = "Standard_LRS"
+  create_option       = "Empty"
+  disk_size_gb        = 32
+
+  tags = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+}
+
+# Attach data disk to VM
+resource "azurerm_virtual_machine_data_disk_attachment" "test_data_disk_attachment" {
+  managed_disk_id    = azurerm_managed_disk.test_data_disk.id
+  virtual_machine_id = module.vm_rhel7.vm_id
+  lun                = 0
+  caching            = "ReadWrite"
+}
+
+# Manual snapshot of data disk (for Path B - snapshot restore testing)
+resource "azurerm_snapshot" "test_data_disk_snapshot" {
+  name                = "snapshot-test-data-disk-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
+  location            = azurerm_resource_group.ks_rg.location
+  resource_group_name = azurerm_resource_group.ks_rg.name
+  create_option       = "Copy"
+  source_resource_id  = azurerm_managed_disk.test_data_disk.id
+
+  tags = merge(module.ctags.common_tags, { expiresAfter = local.expiresAfter })
+}
+
+# Output snapshot ID for recovery testing
+output "test_data_disk_snapshot_id" {
+  value       = azurerm_snapshot.test_data_disk_snapshot.id
+  description = "Snapshot ID for Path B testing (snapshot restore)"
+}
+
+output "test_data_disk_id" {
+  value       = azurerm_managed_disk.test_data_disk.id
+  description = "Data disk ID for recovery testing"
+}
